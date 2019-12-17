@@ -1,5 +1,5 @@
 import pyautogui
-#import win32gui
+import win32gui
 import time
 import keyboard
 import os, threading
@@ -29,41 +29,84 @@ def auto_accept():
             pyautogui.click(im)
 
 def selectlane(givenlane):
-    time.sleep(0.2)
-    while True:
-        lane = locate(givenlane)
-        if lane:
-            pyautogui.click(lane)
-            print(givenlane, 'ausgewählt')
-            return True
+    mousepos = pyautogui.position()
+    if givenlane == 'MID':
+        pyautogui.move(0,-90)
+        pyautogui.click()
+    if givenlane == 'JNGL':
+        pyautogui.move(-70,-75)
+        pyautogui.click()
+    if givenlane == 'TOP':
+        pyautogui.move(-90,0)
+        pyautogui.click()
+    if givenlane == 'ADC':
+        pyautogui.move(70,-75)
+        pyautogui.click()
+    if givenlane == 'SUPP':
+        pyautogui.move(90,0)
+        pyautogui.click()
 
-def startgame():
+    pyautogui.moveTo(mousepos)
+
+def startgame(firstlane,secondlane):
     print('Starte Thread')
     while keyboard.is_pressed('q') == False:
         print('Loop beginnt..')
-        
+
         if locate('mainplay'):
             print('Mainplay wird gedrückt')
             ghostclick('mainplay')
+
         time.sleep(1.5)
+
         if locate('quecheck'):
             print('Checkbox wird gedrückt')
             ghostclick('quecheck')
         if locate('quesubmit'):
             print('Beginne Que..')
             ghostclick('quesubmit')
+        print('1sec warten')
         time.sleep(1)
+        print(locate('normallabel'))
         if locate('normallabel'):
             print('Normallabel gefunden')
             if locate('laneselect'):
-                print('SelectLane wird gedrückt')
-                ghostclick('laneselect')
-        selectlane('mid')
+                pyautogui.click(locate('laneselect'))
+                time.sleep(1)
+                selectlane(firstlane)
+        print('1sec warten')
         time.sleep(1)
         if locate('laneselect'):
-            ghostclick('laneselect')
-        selectlane('top')
+            pyautogui.click(locate('laneselect'))
+            time.sleep(1)
+            selectlane(secondlane)
         print('READY FÜRS GAME :)')
+        print('Starte Game.')
+        if locate('quesearch'):
+            time.sleep(2)
+            pyautogui.click(locate('quesearch'))
+            print('Starte Auto Accept..')
+            time.sleep(1)
+            auto_accept()
     print('Loop beendet..')
 
-startgame()
+
+
+def bann_pick(champ1,champ2,champ3=None,bann):
+    while keyboard.is_pressed('q') == False:
+        if locate('bannchamplabel'):
+            if locate('bannsearch'):
+                ghostclick('bannsearch')
+                pyautogui.wr
+
+
+
+
+
+
+
+
+
+window_title = 'League of Legends'
+hwnd = win32gui.FindWindow(None, window_title)
+win32gui.SetForegroundWindow(hwnd)
