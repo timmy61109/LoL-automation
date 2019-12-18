@@ -88,7 +88,7 @@ def startgame(firstlane,secondlane):
             pyautogui.click(locate('quesearch'))
             print('Starte Auto Accept..')
             time.sleep(1)
-            
+
     print('Loop beendet..')
 
 
@@ -107,7 +107,7 @@ def bann_pick(bann,champ1,champ2=None,champ3=None):
                 pyautogui.click()           #Need to add 'Submit the bann'
                 time.sleep(1)
                 print('Champion Selected!')
-        
+
 
         print("Search for Picking..")
         if locate('selectchamplabel'):
@@ -128,7 +128,9 @@ def bann_pick(bann,champ1,champ2=None,champ3=None):
             ghostclick('selectchamp')
 
 
-
+# Championselect pick erkennen funktioniert nicht
+# bann button wird nicht erkannt und gedrückt
+#
 
 
 
