@@ -24,10 +24,13 @@ def ghostclick(imgname): #Does a invisible click
 
 def auto_accept():
     while keyboard.is_pressed('q') == False:
-        time.sleep(3)
-        im = locate('accept')
-        if im:
-            pyautogui.click(im)
+        time.sleep(1)
+        print('Looking for Acceptlabel..')
+        if locate('acceptlabel'):
+            print('Found Accept Label!')
+            print('Looking for Accept Button..')
+            if locate('accept'):
+                ghostclick('accept')
 
 def selectlane(givenlane):
     mousepos = pyautogui.position()
@@ -77,8 +80,8 @@ def startgame(firstlane,secondlane):
                 selectlane(firstlane)
         print('1sec warten')
         time.sleep(1)
-        if locate('laneselect'):
-            pyautogui.click(locate('laneselect'))
+        if locate('laneselect2'):
+            pyautogui.click(locate('laneselect2'))
             time.sleep(1)
             selectlane(secondlane)
         print('READY FÜRS GAME :)')
@@ -135,11 +138,11 @@ def bann_pick(bann,champ1,champ2=None,champ3=None):
 
 
 
-lane1 = input('Erste Lane: ')
-lane2 = input('Zweite Lane: ')
-champ1 = input('Erster Champion: ')
-champ2 = input('Zweiter Champion: ')
-bann = input('Bann Champion: ')
+lane1 = 'MID'#input('Erste Lane: ')
+lane2 = 'TOP'#input('Zweite Lane: ')
+champ1 = 'QIYANA'#input('Erster Champion: ')
+champ2 = 'IRELIA'#input('Zweiter Champion: ')
+bann = 'ZED'#input('Bann Champion: ')
 
 window_title = 'League of Legends'
 #hwnd = win32gui.FindWindow(None, window_title)
@@ -150,5 +153,5 @@ t2 = threading.Thread(target=startgame,args=(lane1,lane2))
 t3 = threading.Thread(target=bann_pick,args=(bann,champ1,champ2))
 
 t1.start()
-t2.start()
+#t2.start()
 t3.start()
